@@ -54,9 +54,7 @@ def index(request):
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    try:
-        posts[id]
-    except:
+    if id > len(posts) - 1:
         raise Http404("Такого сообщения нет")
     context = {'post': posts[id]}
     return render(request, template, context)
