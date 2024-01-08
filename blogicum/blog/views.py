@@ -54,10 +54,11 @@ def index(request):
 
 def post_detail(request, id):
     template = 'blog/detail.html'
-    if id > len(posts) - 1:
-        raise Http404("Такого сообщения нет")
-    context = {'post': posts[id]}
-    return render(request, template, context)
+    for post in posts:
+        if post['id'] == id:
+            context = {'post': post}
+            return render(request, template, context)
+    raise Http404('Такого сообщения нет')
 
 
 def category_posts(request, category_slug):
